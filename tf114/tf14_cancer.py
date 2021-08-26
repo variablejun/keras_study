@@ -19,13 +19,13 @@ b = tf.Variable(tf.random_normal([1]))
 # acc = tf.reduce_mean(tf.cast(tf.equal(predicted, y), dtype=tf.float32))
 from sklearn.model_selection import train_test_split
 x_train, x_test, y_train, y_test = train_test_split(x_data,y_data,
-train_size = 0.2, random_state=66)
+train_size = 0.2, random_state=77)
 
 hypothesis = tf.sigmoid(tf.matmul(x, w) + b)
 
 # cost = tf.reduce_mean(tf.square(hypothesis-y)) mse
 cost = -tf.reduce_mean(y*tf.log(hypothesis) +( 1 -y) * tf.log(1-hypothesis)) #binary_crossentropy
-optimizer = tf.train.GradientDescentOptimizer(learning_rate=0.0001)
+optimizer = tf.train.GradientDescentOptimizer(learning_rate=0.000011)
 train = optimizer.minimize(cost)
 
 sess = tf.compat.v1.Session()
@@ -44,5 +44,5 @@ c, a = sess.run([predicted,acc], feed_dict={x:x_test,y:y_test})
 print('ac :', a)
 '''
 
-ac : 0.37280703
+ac : 0.37938598
 '''
