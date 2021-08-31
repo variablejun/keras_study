@@ -13,7 +13,7 @@ b = tf.Variable(tf.random_normal([1,3])) # 바이어스는 입력은 1이지만 
 
 hypothesis = tf.nn.softmax(tf.matmul(x, w) + b)
 
-loss = tf.reduce_mean(-tf.reduce_min(y + tf.log(hypothesis),axis=1))
+loss = tf.reduce_mean(-tf.reduce_min(y + tf.log(hypothesis),axis=1)) # 카테고리컬
 optimizer = tf.train.GradientDescentOptimizer(learning_rate = 0.001).minimize(loss) # 그라디언트 디센트방식으로 최소화
 
 with tf.Session() as sess:

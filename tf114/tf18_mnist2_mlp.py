@@ -63,7 +63,7 @@ hypothesis = tf.nn.softmax(tf.matmul(dropout1, w5) + b5)
 # hypothesis = tf.nn.dropout(layer4,keep_prob=0.3) 드롭아웃
 # cost = tf.reduce_mean(tf.square(hypothesis-y)) mse
 
-cost = -tf.reduce_mean(y*tf.log(hypothesis) +( 1 -y) * tf.log(1-hypothesis)) #binary_crossentropy
+cost = tf.reduce_mean(-tf.reduce_min(y + tf.log(hypothesis),axis=1))
 optimizer = tf.train.GradientDescentOptimizer(learning_rate=0.001)
 train = optimizer.minimize(cost)
 
@@ -81,11 +81,11 @@ predicted = tf.cast(hypothesis>0.5, dtype=tf.float32)
 acc = tf.reduce_mean(tf.cast(tf.equal(predicted, y), dtype=tf.float32))
 
 c, a = sess.run([predicted,acc], feed_dict={x:x_test,y:y_test})
-print('예측값 \n',hy_val,'\n 결과값 : \n',c,'\n acc :',a)
+print('예측값 \n',hy_val,'\n 결과값 : \n',c,'\n acc :','{:.9f}',format(a))
 
 
 '''
 acc 0.97 이상
 
-
+ acc : 0.9
 '''
